@@ -1,0 +1,18 @@
+name: Update RLIs
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: Starlight220/InspectRLIs@main
+        with:
+          root: .
+          baseUrl: https://raw.githubusercontent.com/wpilibsuite/allwpilib/
+          versionScheme: v\\d{4}\\.\\d\\.\\d(?:-beta-\\d)?
+          latestVersion: v2021.3.1
+      - run: git diff
