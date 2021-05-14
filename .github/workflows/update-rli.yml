@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: Starlight220/InspectRLIs@e116358fca786407b3be759ee3260a0769c3b35d
+      - uses: Starlight220/InspectRLIs@e5faadc5c79ebdbcb41c3abcfa973120c22fdcde
         with:
           root: .
           baseUrl: https://raw.githubusercontent.com/wpilibsuite/allwpilib/
