@@ -1,6 +1,7 @@
 name: Update RLIs
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   check:
