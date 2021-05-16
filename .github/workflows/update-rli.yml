@@ -1,19 +1,88 @@
 name: Update RLIs
 on:
-  workflow_dispatch:
-  push:
+  pull_request:
+  issue_comment:
+    types: [created]
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      # Run Inspector autofix only on files changed by the PR
+      - uses: khan/pull-request-comment-trigger@master
+        id: trigger-diff
         with:
-          fetch-depth: 0
-      - uses: Starlight220/InspectRLIs@main
+          trigger: '\inspector fix diff'
+          prefix_only: true
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      # Run Inspector autofix on everything
+      - uses: khan/pull-request-comment-trigger@master
+        id: trigger-all
+        with:
+          trigger: '\inspector fix all'
+          prefix_only: true
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      # Remove unchanged files, unless explicitly triggered on everything
+      - name: Remove unchanged files
+        if: steps.trigger-all.outputs.triggered == 'false'
+        run: |
+        git ls-files -v | sort | uniq -u | grep "^h" | xargs rm -rf
+
+      # Run Inspector
+      - name: Inspect RLIs
+        uses: Starlight220/InspectRLIs@main
+        id: inspector
         with:
           root: ${{ github.workspace }}
           baseUrl: https://raw.githubusercontent.com/wpilibsuite/allwpilib/
-          versionScheme: v\d{4}\.\d\.\d(?:-beta-\d)?
-          latestVersion: v2021.3.1
-      - run: git diff
+          versionScheme: v\d{4}\.\d\.\d(?:-beta-\d)?|[0-9a-f]{40}
+          latestVersion: 1f7c9adeeb148d044e6cccf1505f1512229241bd
+
+      # If autofix is triggered, commit changes
+      - name: Commit
+        if: steps.trigger-all.outputs.triggered == 'true' || steps.trigger-diff.outputs.triggered == 'true'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git restore --staged $(git ls-files --deleted)
+          git add .
+          git commit -m "Update RLIs"
+          git push
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Inspector Report
+
+      - name: Create comment
+        if: ${{ steps.fc.outputs.comment-id == 0 }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ${{ steps.inspector.outputs.report }}
+
+      - name: Update comment
+        if: ${{ steps.fc.outputs.comment-id != 0 }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            ${{ steps.inspector.outputs.report }}
+
+      # If there are any outdated or invalid RLIs, fail the status check
+      - name: Set exit code
+        if: ${{ steps.inspector.up-to-date != true }}
+        run: exit 1
