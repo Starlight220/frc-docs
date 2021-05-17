@@ -75,14 +75,11 @@ jobs:
           latestVersion: 1f7c9adeeb148d044e6cccf1505f1512229241bd
 
       - name: Print outputs
-        id: escape
         run: |
           echo "${{ steps.inspector.outputs.test }}"
-          output="$(cat ${{ steps.inspector.outputs.report-file-path }})"
-          output="${output//'%'/'%25'}"
-          output="${output//$'\n'/'%0A'}"
-          output="${output//$'\r'/'%0D'}"
-          echo "::set-output name=report::$output"
+          echo "${{ steps.inspector.outputs.report-file-path }})"
+          echo "${{ steps.inspector.outputs.up-to-date }}"
+          echo "${{ steps.inspector.outputs.needs-manual }}"
 
       # If autofix is triggered, commit changes
       - name: Commit
@@ -110,7 +107,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            "${{ steps.escape.outputs.report }}"
+            "${{ steps.inspector.outputs.report }}"
           issue-number: ${{ github.event.pull_request.number }}
 
       - name: Update comment
@@ -118,7 +115,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            "${{ steps.escape.outputs.report }}"
+            "${{ steps.inspector.outputs.report }}"
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
 
