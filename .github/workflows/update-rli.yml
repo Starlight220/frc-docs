@@ -74,6 +74,10 @@ jobs:
           versionScheme: v\d{4}\.\d\.\d(?:-beta-\d)?|[0-9a-f]{40}
           latestVersion: 1f7c9adeeb148d044e6cccf1505f1512229241bd
 
+      - name: Print outputs
+        run: |
+          echo "outputs: ${{ steps.inspector.outputs }}"
+
       - name: Test
         run: |
           echo "output\n: ${{ steps.inspector.outputs.report }}"
@@ -97,6 +101,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
           body-includes: Inspector Report
+          direction: last
 
       - name: Create comment
         if: ${{ steps.fc.outputs.comment-id == 0 }}
