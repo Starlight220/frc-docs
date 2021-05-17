@@ -66,7 +66,7 @@ jobs:
 
       # Run Inspector
       - name: Inspect RLIs
-        uses: Starlight220/InspectRLIs@main
+        uses: Starlight220/InspectRLIs@test
         id: inspector
         with:
           root: ${{ github.workspace }}
@@ -77,6 +77,7 @@ jobs:
       - name: Print outputs
         id: escape
         run: |
+          echo "${{ steps.inspector.outputs.test }}"
           output="$(cat ${{ steps.inspector.outputs.report-file-path }})"
           output="${output//'%'/'%25'}"
           output="${output//$'\n'/'%0A'}"
