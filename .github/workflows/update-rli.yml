@@ -2,14 +2,14 @@ name: Update RLIs
 on:
   pull_request:
   issue_comment:
-    types: [created]
+    types: [ created ]
 
 jobs:
   check:
+    if: contains(github.event.comment.html_url, '/pull/') || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
+      # ---- Find Trigger States ----
       # Run Inspector autofix only on files changed by the PR
       - uses: khan/pull-request-comment-trigger@master
         id: trigger-diff
@@ -30,6 +30,34 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
+
+      # ---- Checkout - Triggered by Pull Request -----
+      # If triggered by a pull request, simple checkout
+      - name: Checkout [Pull Request]
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v2
+
+      # ---- Checkout - Triggered by Comment -----
+      # If triggered by a comment, we need to find out which ref to checkout
+      - name: Get Pull Request Ref
+        if: github.event_name != 'pull_request'
+        id: get_pr_ref
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/:repository/pulls/:issue_id
+          repository: ${{ github.repository }}
+          issue_id: ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Checkout [Comment]
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ fromJson(steps.get_pr_ref.outputs.data).head.ref }}
+
+
+      # ---- Common - Run ----
       # Remove unchanged files, unless explicitly triggered on everything
       - name: Remove unchanged files
         if: steps.trigger-all.outputs.triggered == 'false'
@@ -57,6 +85,7 @@ jobs:
           git commit -m "Update RLIs"
           git push
 
+      # ---- Common - Post Report ----
       - name: Find Comment
         uses: peter-evans/find-comment@v1
         id: fc
@@ -70,7 +99,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            "TEST:${{ steps.inspector.outputs.report }}"
+            "${{ steps.inspector.outputs.report }}"
           issue-number: ${{ github.event.pull_request.number }}
 
       - name: Update comment
@@ -78,7 +107,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            "TEST2:${{ steps.inspector.outputs.report }}"
+            "${{ steps.inspector.outputs.report }}"
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
 
