@@ -70,8 +70,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ${{ steps.inspector.outputs.report }}
+          body: "${{ steps.inspector.outputs.report }}"
 
       - name: Update comment
         if: ${{ steps.fc.outputs.comment-id != 0 }}
@@ -79,8 +78,7 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: |
-            ${{ steps.inspector.outputs.report }}
+          body: "${{ steps.inspector.outputs.report }}"
 
       # If there are any outdated or invalid RLIs, fail the status check
       - name: Set exit code
