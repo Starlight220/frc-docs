@@ -88,7 +88,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git restore --staged $(git ls-files --deleted)
+          git ls-files --deleted | xargs -I{} git restore --staged {}
           git add .
           git commit -m "Update RLIs"
           git push
