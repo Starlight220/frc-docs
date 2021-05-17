@@ -34,7 +34,7 @@ jobs:
       - name: Remove unchanged files
         if: steps.trigger-all.outputs.triggered == 'false'
         run: |
-        git ls-files -v | sort | uniq -u | grep "^h" | xargs rm -rf
+          git ls-files -v | sort | uniq -u | grep "^h" | xargs rm -rf
 
       # Run Inspector
       - name: Inspect RLIs
