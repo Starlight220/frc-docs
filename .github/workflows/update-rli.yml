@@ -74,6 +74,10 @@ jobs:
           versionScheme: v\d{4}\.\d\.\d(?:-beta-\d)?|[0-9a-f]{40}
           latestVersion: 1f7c9adeeb148d044e6cccf1505f1512229241bd
 
+      - name: Test
+        run: |
+          echo "output\n: ${{ steps.inspector.outputs.report }}"
+
       # If autofix is triggered, commit changes
       - name: Commit
         if: steps.trigger-all.outputs.triggered == 'true' || steps.trigger-diff.outputs.triggered == 'true'
