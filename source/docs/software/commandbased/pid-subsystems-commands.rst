@@ -127,27 +127,27 @@ Using a ``PIDSubsystem`` with commands can be very simple:
 
   .. group-tab:: Java
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2021.1.1-beta-4/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/frisbeebot/RobotContainer.java
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/1f7c9adeeb148d044e6cccf1505f1512229241bd/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/frisbeebot/RobotContainer.java
       :language: java
-      :lines: 85-91
+      :lines: 83-89
       :linenos:
-      :lineno-start: 85
+      :lineno-start: 83
 
   .. group-tab:: C++ (Header)
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2021.1.1-beta-4/wpilibcExamples/src/main/cpp/examples/Frisbeebot/include/RobotContainer.h
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/1f7c9adeeb148d044e6cccf1505f1512229241bd/wpilibcExamples/src/main/cpp/examples/Frisbeebot/include/RobotContainer.h
       :language: c++
-      :lines: 73-77
+      :lines: 70-74
       :linenos:
-      :lineno-start: 73
+      :lineno-start: 70
 
   .. group-tab:: C++ (Source)
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2021.1.1-beta-4/wpilibcExamples/src/main/cpp/examples/Frisbeebot/cpp/RobotContainer.cpp
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/1f7c9adeeb148d044e6cccf1505f1512229241bd/wpilibcExamples/src/main/cpp/examples/Frisbeebot/cpp/RobotContainer.cpp
       :language: c++
-      :lines: 32-36
+      :lines: 29-33
       :linenos:
-      :lineno-start: 32
+      :lineno-start: 29
 
 PIDCommand
 ----------
@@ -165,11 +165,11 @@ In either case, a ``PIDCommand`` is created by passing the necessary parameters 
 
   .. group-tab:: Java
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2021.1.1-beta-4/wpilibNewCommands/src/main/java/edu/wpi/first/wpilibj2/command/PIDCommand.java
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/1f7c9adeeb148d044e6cccf1505f1512229241bd/wpilibNewCommands/src/main/java/edu/wpi/first/wpilibj2/command/PIDCommand.java
       :language: java
-      :lines: 29-51
+      :lines: 25-39
       :linenos:
-      :lineno-start: 29
+      :lineno-start: 25
 
   .. group-tab:: C++
 
