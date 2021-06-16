@@ -26,7 +26,7 @@ Firstly, we must enter the feedforward and feedback gains which we obtained from
 
   .. group-tab:: C++ (Header)
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2020.3.2/wpilibcExamples/src/main/cpp/examples/RamseteCommand/include/Constants.h
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/04e64db945afde667dae829d656392aec945e5c2/wpilibcExamples/src/main/cpp/examples/RamseteCommand/include/Constants.h
       :language: c++
       :lines: 46-56
       :linenos:
@@ -72,7 +72,7 @@ We must also decide on a nominal max acceleration and max velocity for the robot
 
   .. group-tab:: C++ (Header)
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2020.3.2/wpilibcExamples/src/main/cpp/examples/RamseteCommand/include/Constants.h
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/04e64db945afde667dae829d656392aec945e5c2/wpilibcExamples/src/main/cpp/examples/RamseteCommand/include/Constants.h
       :language: c++
       :lines: 60-61
       :linenos:
@@ -95,7 +95,7 @@ Finally, we must include a pair of parameters for the RAMSETE controller.  The v
 
   .. group-tab:: C++ (Header)
 
-    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/v2020.3.2/wpilibcExamples/src/main/cpp/examples/RamseteCommand/include/Constants.h
+    .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/04e64db945afde667dae829d656392aec945e5c2/wpilibcExamples/src/main/cpp/examples/RamseteCommand/include/Constants.h
       :language: c++
       :lines: 63-66
       :linenos:

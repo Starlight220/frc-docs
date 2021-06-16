@@ -100,7 +100,7 @@ WPILib's Kalman Filter classes' constructors take a linear system, a vector of p
 
    .. group-tab:: Java
 
-      .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/1f7c9adeeb148d044e6cccf1505f1512229241bd/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/statespaceflywheel/Robot.java
+      .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/04e64db945afde667dae829d656392aec945e5c2/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/statespaceflywheel/Robot.java
          :language: java
          :lines: 49-58
          :linenos:
@@ -114,7 +114,7 @@ WPILib's Kalman Filter classes' constructors take a linear system, a vector of p
          :linenos:
          :lineno-start: 5
 
-      .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/1f7c9adeeb148d044e6cccf1505f1512229241bd/wpilibcExamples/src/main/cpp/examples/StateSpaceFlywheel/cpp/Robot.cpp
+      .. remoteliteralinclude:: https://raw.githubusercontent.com/wpilibsuite/allwpilib/04e64db945afde667dae829d656392aec945e5c2/wpilibcExamples/src/main/cpp/examples/StateSpaceFlywheel/cpp/Robot.cpp
          :language: cpp
          :lines: 49-54
          :linenos:
