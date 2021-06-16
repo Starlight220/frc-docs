@@ -94,8 +94,8 @@ jobs:
         id: inspector
         with:
           root: ${{ github.workspace }}
-	env:
-	  INSPECTOR_CONFIG: '.github/workflows/inspector.json'
+        env:
+          INSPECTOR_CONFIG: '.github/workflows/inspector.json'
 
       # If autofix is triggered, commit changes
       - name: Commit
