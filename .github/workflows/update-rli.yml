@@ -88,6 +88,12 @@ jobs:
           git ls-files | xargs -I{} rm {}
           git diff $(git merge-base --fork-point upstream/main)..HEAD --name-only | xargs -I{} git restore {} || true
 
+      - name: Print Tree
+        run: |
+          tree "$GITHUB_WORKSPACE" || true
+          ls -a -R "$GITHUB_WORKSPACE" || true
+          find -name 'inputs.inspector.json' || true
+          
       # Run Inspector
       - name: Inspect RLIs
         uses: Starlight220/InspectRLIs@main
