@@ -90,7 +90,7 @@ jobs:
 
       # Run Inspector
       - name: Inspect RLIs
-        uses: Starlight220/InspectRLIs@main
+        uses: Starlight220/InspectRLIs@1fa2e959b30155efcc439cf7d598704d0fc9c699
         id: inspector
         with:
           root: ${{ github.workspace }}
@@ -122,7 +122,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            '${{ steps.inspector.outputs.report }}'
+            ${{ steps.inspector.outputs.report }}
           issue-number: ${{ env.number }}
 
       - name: Update comment
@@ -130,7 +130,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           body: |
-            '${{ steps.inspector.outputs.report }}'
+            ${{ steps.inspector.outputs.report }}
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
 
