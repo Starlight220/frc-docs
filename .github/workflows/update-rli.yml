@@ -90,12 +90,13 @@ jobs:
 
       # Run Inspector
       - name: Inspect RLIs
-        uses: Starlight220/InspectRLIs@1fa2e959b30155efcc439cf7d598704d0fc9c699
+        uses: Starlight220/InspectRLIs@0.6
         id: inspector
         with:
           root: ${{ github.workspace }}
-        env:
-          INSPECTOR_CONFIG: '.github/workflows/inspector.json'
+          baseUrl: https://raw.githubusercontent.com/wpilibsuite/allwpilib
+          versionScheme: v\d{4}\.\d\.\d(?:-beta-\d)?|[0-9a-f]{40}
+          latestVersion: 1f7c9adeeb148d044e6cccf1505f1512229241bd
 
       # If autofix is triggered, commit changes
       - name: Commit
