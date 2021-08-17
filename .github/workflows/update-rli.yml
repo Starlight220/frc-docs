@@ -11,37 +11,37 @@ jobs:
     steps:
       # ---- Find Trigger States ----
       # Run Inspector autofix on everything
-      - name: Trigger-Check
-        uses: khan/pull-request-comment-trigger@master
-        id: trigger-check-all
-        with:
-          trigger: '\inspector check all'
-          prefix_only: true
-          reaction: rocket
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#       - name: Trigger-Check
+#         uses: khan/pull-request-comment-trigger@master
+#         id: trigger-check-all
+#         with:
+#           trigger: '\inspector check all'
+#           prefix_only: true
+#           reaction: rocket
+#         env:
+#           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
-      # Run Inspector autofix only on files changed by the PR
-      - name: Trigger-Diff
-        uses: khan/pull-request-comment-trigger@master
-        id: trigger-diff
-        with:
-          trigger: '\inspector fix diff'
-          prefix_only: true
-          reaction: rocket
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#       # Run Inspector autofix only on files changed by the PR
+#       - name: Trigger-Diff
+#         uses: khan/pull-request-comment-trigger@master
+#         id: trigger-diff
+#         with:
+#           trigger: '\inspector fix diff'
+#           prefix_only: true
+#           reaction: rocket
+#         env:
+#           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
-      # Run Inspector autofix on everything
-      - name: Trigger-All
-        uses: khan/pull-request-comment-trigger@master
-        id: trigger-all
-        with:
-          trigger: '\inspector fix all'
-          prefix_only: true
-          reaction: rocket
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+#       # Run Inspector autofix on everything
+#       - name: Trigger-All
+#         uses: khan/pull-request-comment-trigger@master
+#         id: trigger-all
+#         with:
+#           trigger: '\inspector fix all'
+#           prefix_only: true
+#           reaction: rocket
+#         env:
+#           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
 
       # ---- Checkout - Triggered by Pull Request -----
@@ -78,15 +78,15 @@ jobs:
           ref: ${{ fromJson(steps.get_pr_ref.outputs.data).head.ref }}
 
 
-      # ---- Common - Run ----
-      # Remove unchanged files, unless explicitly triggered on everything
-      - name: Remove unchanged files
-        if: steps.trigger-all.outputs.triggered == 'false' && steps.trigger-check-all.outputs.triggered == 'false'
-        run: |
-          git remote add upstream https://github.com/wpilibsuite/frc-docs.git
-          git fetch upstream
-          git ls-files | xargs -I{} rm {}
-          git diff $(git merge-base --fork-point upstream/main)..HEAD --name-only | xargs -I{} git restore {} || true
+#       # ---- Common - Run ----
+#       # Remove unchanged files, unless explicitly triggered on everything
+#       - name: Remove unchanged files
+#         if: steps.trigger-all.outputs.triggered == 'false' && steps.trigger-check-all.outputs.triggered == 'false'
+#         run: |
+#           git remote add upstream https://github.com/wpilibsuite/frc-docs.git
+#           git fetch upstream
+#           git ls-files | xargs -I{} rm {}
+#           git diff $(git merge-base --fork-point upstream/main)..HEAD --name-only | xargs -I{} git restore {} || true
 
       # Run Inspector
       - name: Inspect RLIs
