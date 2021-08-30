@@ -146,7 +146,12 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
 
+      - name: Print Up-To-Date Status
+        run: |
+          echo "$UP2DATE"
+        env:
+          UP2DATE: ${{ steps.inspector.outputs.up-to-date }}
       # If there are any outdated or invalid RLIs, fail the status check
       - name: Set exit code
-        if: ${{ steps.inspector.up-to-date == false }}
+        if: ${{ steps.inspector.outputs.up-to-date == false }}
         run: exit 1
