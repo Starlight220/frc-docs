@@ -158,7 +158,7 @@ The ``run`` factory, backed by the ``RunCommand`` (`Java <https://github.wpilib.
             -m_driverController.GetLeftY(),
             m_driverController.GetRightX());
       },
-      {&m_drive}))
+      {&m_drive})
 
 The ``startEnd`` factory, backed by the ``StartEndCommand`` (`Java <https://github.wpilib.org/allwpilib/docs/beta/java/edu/wpi/first/wpilibj2/command/StartEndCommand.html>`__, `C++ <https://github.wpilib.org/allwpilib/docs/beta/cpp/classfrc2_1_1_start_end_command.html>`__) class, calls one lambda when scheduled, and then a second lambda when interrupted.
 

@@ -15,7 +15,7 @@ The command-based paradigm is also an example of :term:`declarative programming`
 
   .. code-block:: c++
 
-    Trigger([&condition] { return condition.Get()).OnTrue(frc2::cmd::RunOnce([&piston] { piston.Set(frc::DoubleSolenoid::kForward)));
+    Trigger([&condition] { return condition.Get(); }).OnTrue(frc2::cmd::RunOnce([&piston] { piston.Set(frc::DoubleSolenoid::kForward); }));
 
 In contrast, without using command-based, the user would need to check the button state every iteration, and perform the appropriate action based on the state of the button.
 
